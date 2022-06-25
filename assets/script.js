@@ -11,45 +11,44 @@ var uppercaseCharacters = [
     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 ];
 
-var passwordLength = window.prompt("How many characters would you like your password to contain?")
-
-if (passwordLength < 8 || passwordLength > 128) {
-    window.alert("Password length must be at least 8 characters");
-}
-
-var isNumberCharacters = window.confirm("Do you want any numbers in your password?")
-var isSpecialCharacters = window.confirm("Do you want any special characters in your password?")
-var isLowercaseCharacters = window.confirm("Do you want any lowercase letters in your password?")
-var isUppercaseCharacters = window.confirm("Do you want any uppercase letters in your password?")
-
-if (!isNumberCharacters && !isSpecialCharacters && !isLowercaseCharacters && !isUppercaseCharacters) {
-    window.alert("Select at least one character!")
-}
-
-var myCharacters = () => {
-    var characterArr = [];
-
-    if (isNumberCharacters) {
-        characterArr.push(...numberCharacters);
-    }
-    if (isSpecialCharacters) {
-        characterArr.push(...specialCharacters);
-    }
-    if (isLowercaseCharacters) {
-        characterArr.push(...lowercaseCharacters)
-    }
-    if (isUppercaseCharacters) {
-        characterArr.push(...uppercaseCharacters)
+var generatePassword = () => {
+    var myCharacters = () => {
+        var characterArr = [];
+    
+        if (isNumberCharacters) {
+            characterArr.push(...numberCharacters);
+        }
+        if (isSpecialCharacters) {
+            characterArr.push(...specialCharacters);
+        }
+        if (isLowercaseCharacters) {
+            characterArr.push(...lowercaseCharacters)
+        }
+        if (isUppercaseCharacters) {
+            characterArr.push(...uppercaseCharacters)
+        }
+    
+        return characterArr
     }
 
-    return characterArr
-}
+    var passwordLength = window.prompt("How many characters would you like your password to contain?")
 
-var generatePassword = len => {
+    if (passwordLength < 8 || passwordLength > 128) {
+        window.alert("Password length must be at least 8 characters");
+    }
+
+    var isNumberCharacters = window.confirm("Do you want any numbers in your password?")
+    var isSpecialCharacters = window.confirm("Do you want any special characters in your password?")
+    var isLowercaseCharacters = window.confirm("Do you want any lowercase letters in your password?")
+    var isUppercaseCharacters = window.confirm("Do you want any uppercase letters in your password?")
+
+    if (!isNumberCharacters && !isSpecialCharacters && !isLowercaseCharacters && !isUppercaseCharacters) {
+        window.alert("Select at least one character!")
+    }
     var myPassword = [];
     var characters = myCharacters()
 
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < passwordLength; i++) {
         var randomNumberBetween = Math.floor(Math.random() * characters.length);
         myPassword.push(characters[randomNumberBetween]);
     }
@@ -60,7 +59,7 @@ var generatePassword = len => {
 var generateBtn = document.querySelector("#generate");
   
 function writePassword() {
-   var password = generatePassword(passwordLength);
+   var password = generatePassword();
    var passwordText = document.querySelector("#password");
  
    passwordText.value = password;
